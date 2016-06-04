@@ -19,6 +19,8 @@
   },
   "homepage": "https://github.com/ssujith87/mongodbadvfeatures#readme",
   "dependencies": {
-    "mongodb": "^2.1.16"
+    "express": "~4.10.2",
+    "mongodb": "^2.1.16",
+    "mongojs": "^2.4.0"
   }
 }
