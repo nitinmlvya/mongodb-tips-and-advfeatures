@@ -1,0 +1,2 @@
+{"_id":1.0,"semester":3.0,"grades":[{"grade":80.0,"mean":75.0,"std":8.0},{"grade":85.0,"mean":90.0,"std":5.0},{"grade":90.0,"mean":85.0,"std":3.0},{"grade":90.0,"mean":85.0,"std":1.0}]}
+{"_id":2.0,"semester":3.0,"grades":[{"grade":92.0,"mean":88.0,"std":8.0},{"grade":78.0,"mean":90.0,"std":5.0},{"grade":88.0,"mean":85.0,"std":3.0},{"grade":90.0,"mean":85.0,"std":1.0}]}
