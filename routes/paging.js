@@ -1,7 +1,7 @@
 module.exports = function(app) {
 
     app.get('/', function(req, res) {
-      res.send('<b>Welcome to the paging example.</b> <br>Please try url: /students/pageNumber</br>');
+      res.send('<b>Welcome to the MongoDB Tips and Tricks tutorial.</b>');
     });
 
     app.get('/students', function(req, res){

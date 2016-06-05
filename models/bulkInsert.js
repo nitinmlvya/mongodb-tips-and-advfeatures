@@ -4,12 +4,12 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 module.exports = function(dbConn) {
-  var PagingSchema = new Schema({
+  var BulkInsert = new Schema({
     id: Number
   }, {
     versionKey: false,
-    collection: 'paging'
+    collection: 'bulk'
   });
 
-  dbConn.model('Paging', PagingSchema);
+  dbConn.model('Bulk', BulkInsert);
 }

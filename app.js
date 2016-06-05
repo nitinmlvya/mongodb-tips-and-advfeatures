@@ -5,10 +5,14 @@ var db = require('./config/dbConfig');
 
 var PORT_NUMBER = 3000;
 
+// register the routes
 require('./routes/paging')(app);
+require('./routes/bulkInsert')(app);
 
 // register the models
 require('./models/paging')(db);
+require('./models/bulkInsert')(db);
+
 app.set('dbConn', db);
 
 app.listen(PORT_NUMBER, function() {
