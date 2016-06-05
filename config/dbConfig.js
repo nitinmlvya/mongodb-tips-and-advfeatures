@@ -1,5 +1,5 @@
 'use strict';
-var mongojs = require('mongojs');
+var mongoose = require('mongoose');
 
 var config = {
   db: 'mongodbfeatures',  
@@ -14,6 +14,6 @@ var login = (config.user.length > 0) ? config.user + ":" + config.pw + "@" : '';
 var uristring =  "mongodb://" + login + config.host + port + "/" + config.db;
 
 // Connect to Database
-var db = mongojs(uristring);
+var db = mongoose.createConnection(uristring);
 
 module.exports = db;
