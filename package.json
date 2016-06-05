@@ -21,6 +21,9 @@
   "dependencies": {
     "express": "~4.10.2",
     "mongodb": "^2.1.16",
-    "mongoose": "^4.4.19"
+    "mongoose": "^4.4.19",
+    "busboy": "^0.2.13",
+    "busboy-body-parser": "0.0.10",
+    "gridfs-stream": "^1.1.1"
   }
 }
