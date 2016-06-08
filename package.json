@@ -19,11 +19,13 @@
   },
   "homepage": "https://github.com/ssujith87/mongodbadvfeatures#readme",
   "dependencies": {
-    "express": "~4.10.2",
-    "mongodb": "^2.1.16",
-    "mongoose": "^4.4.19",
+    "body-parser": "^1.15.1",
     "busboy": "^0.2.13",
     "busboy-body-parser": "0.0.10",
-    "gridfs-stream": "^1.1.1"
+    "express": "~4.10.2",
+    "gridfs-stream": "^1.1.1",
+    "mongodb": "^2.1.16",
+    "mongoose": "^4.4.19",
+    "q": "^1.4.1"
   }
 }

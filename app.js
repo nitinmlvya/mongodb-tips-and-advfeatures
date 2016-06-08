@@ -1,6 +1,10 @@
 var express = require('express');
+var bodyParser = require("body-parser");
 var app = module.exports = express();
 var db = require('./config/dbConfig');
+
+app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.json());
 
 var PORT_NUMBER = 3000;
 
