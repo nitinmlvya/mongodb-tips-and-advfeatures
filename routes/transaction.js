@@ -42,26 +42,51 @@ module.exports = function(app) {
                       accountsModel.update({_id: transactionObject.destination, pendingTransactions: { $ne: transactionObject._id }},
                                { $inc: { balance: transactionObject.amount }, $push: { pendingTransactions: transactionObject._id } }).lean().exec()]).
         then(function(resultStep2) {
-          console.log('Update the state of the transaction and pull the transaction out of the accounts.')
+          console.log('Update the state of the transaction and pull the transaction out of the accounts.');
           return Q.all([transactionModel.update({ _id: transactionObject._id, state: "pending" }, {$set: { state: "applied"}}).lean().exec(),
                         accountsModel.update({ _id: transactionObject.source, pendingTransactions: transactionObject._id },
                                              { $pull: { pendingTransactions: transactionObject._id }}).lean().exec(),
                         accountsModel.update({ _id: transactionObject.destination, pendingTransactions: transactionObject._id },
                                              { $pull: { pendingTransactions: transactionObject._id }}).lean().exec()]).
           then(function(resultStep3) {
-            console.log('Finally, set the transaction state to done.')
+            console.log('Finally, set the transaction state to done.');
             return transactionModel.update({ _id: transactionObject._id, state: "applied" },
                                            {$set: { state: "done" }}).lean().exec().
             then(function(finalResult) {
               return res.send({success: true});
             });
           });
-        })
-      })
-    })
+        });
+      });
+    });
   });
 
   app.get('/transaction/rollback', function(req, res) {
-    
+    var transactionModel = app.get('dbConn').model('Transactions');
+    var accountsModel = app.get('dbConn').model('Accounts');
+    return transactionModel.findOne({state: "pending"}).lean().exec().
+    then(function(pendingTxObject) {
+      if (!pendingTxObject) {
+        res.send({success: true, msg: 'No pending transactions.'});
+      }
+      console.log('Starting to cancel a transaction which is in pending state.');
+      return transactionModel.update({ _id: pendingTxObject._id, state: "pending" },
+                                     {$set: { state: "canceling" }}).lean().exec().
+      then(function(resultStep1) {
+        console.log('Rollback the changes in the accounts.');
+        return Q.all([accountsModel.update({ _id: pendingTxObject.destination, pendingTransactions: pendingTxObject._id },
+                      {$inc: { balance: -pendingTxObject.amount}, $pull: { pendingTransactions: pendingTxObject._id }}).lean().exec(),
+                      accountsModel.update({ _id: pendingTxObject.source, pendingTransactions: pendingTxObject._id },
+                      {$inc: { balance: pendingTxObject.amount}, $pull: { pendingTransactions: pendingTxObject._id }}).lean().exec()]).
+        then(function(resultStep2) {
+          console.log('Marking the transaction as cancelled.');
+          transactionModel.update({ _id: pendingTxObject._id, state: "canceling" },
+                                  {$set: { state: "cancelled" }}).lean().exec().
+          then(function(finalResult) {
+            return res.send({success: true});
+          });
+        });
+      });
+    });
   });
 };
