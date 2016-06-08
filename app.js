@@ -12,11 +12,14 @@ var PORT_NUMBER = 3000;
 require('./routes/paging')(app);
 require('./routes/bulkInsert')(app);
 require('./routes/ttl')(app);
+require('./routes/transaction')(app);
 
 // register the models
 require('./models/paging')(db);
 require('./models/bulkInsert')(db);
 require('./models/ttl')(db);
+require('./models/accounts')(db);
+require('./models/transaction')(db);
 
 app.set('dbConn', db);
 
