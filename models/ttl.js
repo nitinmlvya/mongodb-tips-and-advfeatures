@@ -15,7 +15,7 @@ module.exports = function(dbConn) {
   TTLSchema.index({
     expiresAt: 1
   }, {
-    expireAfterSeconds: 60
+    expireAfterSeconds: 30
   });
   dbConn.model('TTL', TTLSchema);
 }
