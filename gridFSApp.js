@@ -9,7 +9,7 @@ var server = app.listen(9002, function() {
   console.log('Server running at http://localhost:9002/gridfs')
 });
 
-var db = new mongo.Db('gridfs', new mongo.Server('127.0.0.1', 27017));
+var db = new mongo.Db('mongodbfeatures', new mongo.Server('127.0.0.1', 27017));
 var gfs;
 db.open(function(err, db) {
   if (err) throw err;
@@ -59,11 +59,15 @@ app.get('/gridfs/file/:id', function(req, res) {
     var readstream = gfs.createReadStream({
       filename: file.filename
     });
+    var bufs = [];
     readstream.on('data', function(data) {
-        res.write(data);
+      bufs.push(data);
     });
     readstream.on('end', function() {
-        res.end();        
+      var fileToSend = (Buffer.concat(bufs).toString('base64'));
+      res.write(fileToSend, function() {
+        res.end();
+      });
     });
 
     readstream.on("error", function(err) {
