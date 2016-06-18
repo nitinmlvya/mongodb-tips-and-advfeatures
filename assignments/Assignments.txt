@@ -1,0 +1,5 @@
+Assignment 1: TTL usage
+Make a small UI, only the login page and welcome page. Initiate a session after login, the session should timeout in 1 min. If you reload the login page after 1 min, the session should timeout(make use of the TTL feature)
+
+Assignement 2: Rollback the applied transaction
+We have seen a rollback scenario when the transaction is in pending state. Implement a rollback scenario where the transaction is in applied state but not completed. So, system should be able to rollback the applied changes.
