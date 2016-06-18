@@ -1,7 +1,7 @@
 {
-  "name": "mongodbadvfeatures",
+  "name": "mongodbfeatures",
   "version": "1.0.0",
-  "description": "Examples about mongoDB advance features.",
+  "description": "Examples about mongoDB tips and advance features.",
   "directories": {
     "example": "examples"
   },
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ssujith87/mongodbadvfeatures.git"
+    "url": "git+https://github.com/ssujith87/mongodb-tips-and-advfeatures.git"
   },
   "author": "Sujith Sudhakaran",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ssujith87/mongodbadvfeatures/issues"
+    "url": "https://github.com/ssujith87/mongodb-tips-and-advfeatures/issues"
   },
-  "homepage": "https://github.com/ssujith87/mongodbadvfeatures#readme",
+  "homepage": "https://github.com/ssujith87/mongodb-tips-and-advfeatures#readme",
   "dependencies": {
     "body-parser": "^1.15.1",
     "busboy": "^0.2.13",
