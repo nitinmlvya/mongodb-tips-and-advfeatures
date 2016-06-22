@@ -3,6 +3,13 @@ var Q = require('q');
 
 module.exports = function(app) {
 
+  // We will be using the accounts collection to demo this example
+  // This route will be used to add a transaction to apply on the accounts
+  // in accounts collection
+  // Structure of the POST method should be:
+  // source: eg: A, Id of the source account from whom the money should be debited
+  // destination: eg: B, Id of the source account to whom the money should be credited
+  // amount: eg: 100, total amount to be debited
   app.post('/transaction/add', function(req, res) {
     var transactionObject = {};
     transactionObject.source = req.body.source;
@@ -23,6 +30,7 @@ module.exports = function(app) {
     })
   });
 
+  // GET request to execute a transaction
   app.get('/transaction/execute', function(req, res) {
     var transactionModel = app.get('dbConn').model('Transactions');
     var accountsModel = app.get('dbConn').model('Accounts');
@@ -42,6 +50,9 @@ module.exports = function(app) {
                       accountsModel.update({_id: transactionObject.destination, pendingTransactions: { $ne: transactionObject._id }},
                                { $inc: { balance: transactionObject.amount }, $push: { pendingTransactions: transactionObject._id } }).lean().exec()]).
         then(function(resultStep2) {
+          // This below line will be used to create an error scenario while
+          // applying the transaction. Uncomment it to create a transaction failure
+          // return res.send({success: true});
           console.log('Update the state of the transaction and pull the transaction out of the accounts.');
           return Q.all([transactionModel.update({ _id: transactionObject._id, state: "pending" }, {$set: { state: "applied"}}).lean().exec(),
                         accountsModel.update({ _id: transactionObject.source, pendingTransactions: transactionObject._id },
@@ -61,6 +72,7 @@ module.exports = function(app) {
     });
   });
 
+  // GET request to execute a rollback operation
   app.get('/transaction/rollback', function(req, res) {
     var transactionModel = app.get('dbConn').model('Transactions');
     var accountsModel = app.get('dbConn').model('Accounts');

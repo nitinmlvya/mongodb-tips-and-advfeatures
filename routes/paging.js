@@ -1,9 +1,13 @@
 module.exports = function(app) {
 
     app.get('/', function(req, res) {
-      res.send('<b>Welcome to the MongoDB Tips and Tricks tutorial.</b>');
+      res.send('<b>Welcome to the MongoDB Tips and Advance Features tutorial.</b>');
     });
 
+    // GET request to demo the paging example
+    // It will require parameters as:
+    // - pageNumber: 1,
+    // - size: 2
     app.get('/students', function(req, res){
       var pageNumber = 1;
       pageNumber = parseInt(req.query.pageNumber);
