@@ -14,6 +14,9 @@ module.exports = function(app) {
       var sizePerPage = parseInt(req.query.size);
 
       var skipRecordsCount = (pageNumber-1)*sizePerPage;
+      console.log('pageNumber: ', pageNumber);
+      console.log('sizePerPage: ', sizePerPage);
+      console.log('skipRecordsCount: ', skipRecordsCount);
       app.get('dbConn').model('Paging').find({}, {}, {skip: skipRecordsCount, limit: sizePerPage}).lean().exec().
       // app.get('dbConn').model('Paging').find({}).skip(skipRecordsCount).limit(sizePerPage).lean().exec().
         then(function(records) {
