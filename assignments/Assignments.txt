@@ -3,3 +3,6 @@ Make a small UI, only the login page and welcome page. Initiate a session after 
 
 Assignement 2: Rollback the applied transaction
 We have seen a rollback scenario when the transaction is in pending state. Implement a rollback scenario where the transaction is in applied state but not completed. So, system should be able to rollback the applied changes.
+
+Assignment 3: Implement Seek feature for video files streaming
+This will be a more involved assignment. You might have to check how to handle the seek functionality from the client side
